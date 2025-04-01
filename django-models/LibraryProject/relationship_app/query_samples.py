@@ -24,7 +24,7 @@ def get_books_in_library(library_name):
 def get_librarian_of_library(library_name):
     library = Library.objects.filter(name=library_name).first()
     if library:
-        return Librarian.objects.filter(library=library).first()
+        return Librarian.objects.get(library=library)
     return None
 
 # Example usage
