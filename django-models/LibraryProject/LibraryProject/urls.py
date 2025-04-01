@@ -1,4 +1,12 @@
 """
+from django.urls import path
+from .views import list_books, LibraryDetailView
+
+urlpatterns = [
+    path('books/', list_books, name='list_books'),
+    path('library/<int:pk>/', LibraryDetailView.as_view(), name='library_detail'),
+]
+
 URL configuration for LibraryProject project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -16,11 +24,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.urls import path
-from .views import list_books, LibraryDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('books/', list_books, name='list_books')
-    path('library/<int:pk>/', LibraryDetailView.as_view(), name='library_detail')
 ]
