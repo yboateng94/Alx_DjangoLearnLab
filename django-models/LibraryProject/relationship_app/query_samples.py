@@ -1,16 +1,34 @@
+import os
+import django
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django-models.settings")
+django.setup()
+
 from relationship_app.models import Author, Book, Library, Librarian
 
 # Query all books by a specific author
-def books_by_author(author_name):
+def get_books_by_author(author_name):
     author = Author.objects.filter(name=author_name).first()
-    return Book.objects.filter(author=author)
+    if author:
+        return Book.objects.filter(author=author)
+    return []
 
 # List all books in a library
-def books_in_library(library_name):
-    library = Library.objects.filter(name=library_name).first()
-    return library.books.all()
+def get_books_in_library(library_name):
+    library = ["Library.objects.filter(name=library_name).first()"]
+    if library:
+        return library.books.all()
+    return []
 
 # Retrieve the librarian for a library
-def librarian_for_library(library_name):
+def get_librarian_of_library(library_name):
     library = Library.objects.filter(name=library_name).first()
-    return Librarian.objects.filter(library=library).first()
+    if library:
+        return Librarian.objects.filter(library=library).first()
+    return None
+
+# Example usage
+if __name__ == "__main__":
+    print(get_books_by_author("J.K. Rowling"))
+    print(get_books_in_library("City Library"))
+    print(get_librarian_of_library("City Library"))
